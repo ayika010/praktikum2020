@@ -1,0 +1,75 @@
+---
+title: "Tugas3"
+author: "Ayi"
+date: "9/29/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+```{r}
+library(dslabs)
+data("murders") 
+
+```
+### 1.Gunakan operator aksesor ($) untuk mengakses variabel populasi dan menyimpannya padaobjek baru “pop”. Kemudian gunakan fungsi sort untuk mengurutkan variabel “pop”. Pada langkah terakhir, gunakan operator ([) untuk menampilkan nilai populasi terkecil.  
+
+```{r}
+pop = murders$population
+sort(pop)
+sort(pop)[1]
+```
+
+### 2.Tampilkan indeks dari data yang memiliki nilai populasi terkecil. 
+
+```{r}
+pop2=order(pop)
+pop2[1]
+```
+### 3. Dengan fungsi which.min, Tulis satu baris kode yang dapat menampilkan hasil yang sama dengan langkah diatas
+
+```{r}
+which.min(pop)
+```
+
+### 4.Tampilkan nama negara yang memiliki populasi terkecil. 
+
+```{r}
+statemin=murders$state
+statemin[which.min(pop)]
+```
+
+### 5.
+
+```{r}
+ranks=rank(pop)
+my_df = data.frame(name = murders$state, rank = ranks)
+my_df
+```
+
+### 6.
+```{r}
+ind = order(my_df$rank)
+rank2= sort(my_df$rank)
+my_df = data.frame(name = my_df$name[ind], rank = rank2)
+my_df
+```
+### 7.
+```{r}
+population_in_log <- murders$population
+total_gun_murders <- murders$total
+plot(log10(population_in_log), log10(total_gun_murders)) 
+```
+### 8.Buat histogram dari populasi negara bagian.(per 100.000) 
+```{r}
+population <- with(murders, population/100000)
+hist(population)
+```
+
+
+### 9.Hasilkan boxplot dari populasi negara bagian berdasarkan wilayahnya. 
+```{r}
+pop <- with(murders,population/ 100000)
+boxplot(pop~region, data = murders) 
+```
